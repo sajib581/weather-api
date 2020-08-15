@@ -50,7 +50,7 @@
 
         function getData() {
             const cityName = document.getElementById("cityName").value;
-            fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=8cf1f5f00d10250fa2ef4e96822c5200`)
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=8cf1f5f00d10250fa2ef4e96822c5200`)
                 .then(res => res.json())
                 .then(data => {
                     const showCity = document.getElementById("showCity")
