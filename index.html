@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input id="cityName" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button id="searchBtn" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1><span id="showCity">Dhaka</span></h1>
+            <h3><span id="temp">38.06</span>&deg;C</h3>
+            <h1 class="lead" id="lead">Clouds</h1>
+        </div>
+    </div>
+
+    <script>
+        const searchBtn = document.getElementById("searchBtn")
+        searchBtn.addEventListener("click", function() {
+            getData();
+        })
+        document.getElementById("cityName").addEventListener("keypress", function(e) {
+            if (e.key == 'Enter') {
+                //console.log("OK");
+                getData();
+            }
+        })
+
+        function getData() {
+            const cityName = document.getElementById("cityName").value;
+            fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=8cf1f5f00d10250fa2ef4e96822c5200`)
+                .then(res => res.json())
+                .then(data => {
+                    const showCity = document.getElementById("showCity")
+                    showCity.innerText = data.name + " ," + data.sys.country
+                    const lead = document.getElementById("lead")
+                    lead.innerText = data.weather[0].main
+                    const temp = document.getElementById("temp");
+                    temp.innerText = data.main.temp
+                    document.getElementById("cityName").value = ""
+                })
+        }
+    </script>
+
+</body>
+
+</html>
