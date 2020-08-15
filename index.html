@@ -43,7 +43,7 @@
         })
         document.getElementById("cityName").addEventListener("keypress", function(e) {
             if (e.key == 'Enter') {
-                //console.log("OK");
+                event.preventDefault()
                 getData();
             }
         })
